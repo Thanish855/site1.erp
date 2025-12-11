@@ -1,0 +1,40 @@
+[
+ {
+  "allow_guest": 0,
+  "api_method": null,
+  "cron_format": null,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Server Script",
+  "doctype_event": "Before Insert",
+  "enable_rate_limit": 0,
+  "event_frequency": "All",
+  "modified": "2025-12-11 15:31:42.888833",
+  "module": "site1",
+  "name": "server script 1",
+  "rate_limit_count": 5,
+  "rate_limit_seconds": 86400,
+  "reference_doctype": "Task",
+  "script": "frappe.msgprint(\"Hi iam server script\")",
+  "script_type": "DocType Event"
+ },
+ {
+  "allow_guest": 0,
+  "api_method": null,
+  "cron_format": null,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Server Script",
+  "doctype_event": "After Submit",
+  "enable_rate_limit": 0,
+  "event_frequency": "All",
+  "modified": "2025-12-11 16:20:26.919161",
+  "module": "site1",
+  "name": "automatic sales order when quotation created",
+  "rate_limit_count": 5,
+  "rate_limit_seconds": 86400,
+  "reference_doctype": "Quotation",
+  "script": "sales_order = frappe.new_doc(\"Sales Order\")\nsales_order.customer = doc.customer\n\n# Copy items\nfor item in doc.items:\n    sales_order.append(\"items\", {\n        \"item_code\": item.item_code,\n        \"qty\": item.qty,\n        \"rate\": item.rate\n    })\n\n# Required fields\nsales_order.transaction_date = doc.transaction_date\nsales_order.delivery_date = doc.valid_till or doc.transaction_date\n\n# Insert and submit\nsales_order.insert()\nsales_order.submit()\n\nfrappe.msgprint(f\"Sales Order {sales_order.name} created automatically.\")",
+  "script_type": "DocType Event"
+ }
+]

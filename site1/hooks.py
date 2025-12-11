@@ -242,3 +242,24 @@ app_license = "mit"
 # 	"Logging DocType Name": 30  # days to retain logs
 # }
 
+fixtures = [
+    # if changes made twice in same like here in property setter and custom field we can only run command in terminal alone not to write again and again
+    {"dt":"Customer","filters":[["default_currency","=",["USD"]]]},
+    # for vehicle field creation in customer doctype exporting fixtures 
+    {"dt":"Custom Field", "filters": [["module", "=", "site1"]]},
+    # for description field creation in sales invoice doctype exporting fixtures
+    {"dt":"Custom Field", "filters": [["module", "=", "site1"]]},
+    # changes made in customer doctype as tax is made read only and values are set as default will be visible in property setter
+    {"dt": "Property Setter", "filters": [["module", "=", "site1"]]},
+    # changes are made in notification to add whatsapp in channel here new prperty setter is created 
+    {"dt": "Property Setter", "filters": [["module", "=", "site1"]]},
+
+    {"dt":"Client Script", "filters": [["module", "=", "site1"]]},
+
+    {"dt":"Server Script", "filters": [["module", "=", "site1"]]},
+
+    {"dt":"Print Format", "filters": [["name", "=", "My print format"]]},
+
+    {"dt":"DocType", "filters": [["name", "=", "area"]]},
+]
+
